@@ -23,6 +23,9 @@ style.textContent = `
 .xmd-btn:hover .xmd-ring,.xmd-btn:focus-visible .xmd-ring{background-color:rgba(29,155,240,.1)}
 .xmd-btn:focus-visible{outline:none}
 .xmd-btn.xmd-done{color:rgb(0,186,124)}
+.xmd-bar{justify-content:space-between!important}
+.xmd-bar>*{flex:0 0 auto!important}
+.xmd-wrap{display:flex;align-items:center}
 `;
 (document.head || document.documentElement).appendChild(style);
 
@@ -65,17 +68,21 @@ function addButton(article) {
     btn.classList.add('xmd-done');
     setTimeout(() => { path.setAttribute('d', ICON_DOWNLOAD); btn.classList.remove('xmd-done'); }, 1500);
   });
-  // X gives every action an equal-width slot; icons sit at the left of their
-  // slot except Share, which is pushed to the right edge of the last slot.
-  // So we copy a middle slot's class (Repost) and insert before Share —
-  // appending after Share would leave our icon glued to it.
+  // Match X's icon size for this view (timeline vs. expanded tweet differ).
+  const ref = bar.querySelector('svg');
+  if (ref) {
+    const size = getComputedStyle(ref).width;
+    svg.style.width = size;
+    svg.style.height = size;
+  }
+
+  // Last slot on the far right; .xmd-bar spaces every slot evenly.
   const wrap = document.createElement('div');
-  const slot = bar.children[1] || bar.firstElementChild;
-  if (slot) wrap.className = slot.className;
-  wrap.classList.add('xmd-wrap');
+  wrap.className = 'xmd-wrap';
   wrap.dataset.id = id;
   wrap.appendChild(btn);
-  bar.insertBefore(wrap, bar.lastElementChild);
+  bar.classList.add('xmd-bar');
+  bar.appendChild(wrap);
 }
 
 let pending = false;
