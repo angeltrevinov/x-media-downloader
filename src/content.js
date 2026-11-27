@@ -33,7 +33,7 @@ function tweetIdOf(article) {
 
 function addButton(article) {
   const id = tweetIdOf(article);
-  const old = article.querySelector('.xmd-btn');
+  const old = article.querySelector('.xmd-wrap');
   if (old && old.dataset.id === id) return;
   old?.remove(); // X recycles article nodes; drop stale buttons
   const entry = id && store.get(id);
@@ -65,7 +65,15 @@ function addButton(article) {
     btn.classList.add('xmd-done');
     setTimeout(() => { path.setAttribute('d', ICON_DOWNLOAD); btn.classList.remove('xmd-done'); }, 1500);
   });
-  bar.appendChild(btn);
+  // Reuse the class of X's own action slots so the button gets the same
+  // share of the bar's width instead of being squeezed in at the end.
+  const wrap = document.createElement('div');
+  const slot = bar.firstElementChild;
+  if (slot) wrap.className = slot.className;
+  wrap.classList.add('xmd-wrap');
+  wrap.dataset.id = id;
+  wrap.appendChild(btn);
+  bar.appendChild(wrap);
 }
 
 let pending = false;
