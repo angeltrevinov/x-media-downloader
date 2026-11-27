@@ -65,15 +65,17 @@ function addButton(article) {
     btn.classList.add('xmd-done');
     setTimeout(() => { path.setAttribute('d', ICON_DOWNLOAD); btn.classList.remove('xmd-done'); }, 1500);
   });
-  // Reuse the class of X's own action slots so the button gets the same
-  // share of the bar's width instead of being squeezed in at the end.
+  // X gives every action an equal-width slot; icons sit at the left of their
+  // slot except Share, which is pushed to the right edge of the last slot.
+  // So we copy a middle slot's class (Repost) and insert before Share —
+  // appending after Share would leave our icon glued to it.
   const wrap = document.createElement('div');
-  const slot = bar.firstElementChild;
+  const slot = bar.children[1] || bar.firstElementChild;
   if (slot) wrap.className = slot.className;
   wrap.classList.add('xmd-wrap');
   wrap.dataset.id = id;
   wrap.appendChild(btn);
-  bar.appendChild(wrap);
+  bar.insertBefore(wrap, bar.lastElementChild);
 }
 
 let pending = false;
