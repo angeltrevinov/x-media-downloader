@@ -1,0 +1,14 @@
+{"data":{"threaded_conversation_with_injections_v2":{"instructions":[{"entries":[{"content":{"itemContent":{"tweet_results":{"result":{
+  "rest_id":"111",
+  "core":{"user_results":{"result":{"legacy":{"screen_name":"alice"}}}},
+  "legacy":{"extended_entities":{"media":[
+    {"id_str":"901","type":"photo","media_url_https":"https://pbs.twimg.com/media/ABC.jpg"},
+    {"id_str":"902","type":"video","video_info":{"variants":[
+      {"content_type":"application/x-mpegURL","url":"https://video.twimg.com/x.m3u8"},
+      {"content_type":"video/mp4","bitrate":832000,"url":"https://video.twimg.com/low.mp4?tag=1"},
+      {"content_type":"video/mp4","bitrate":2176000,"url":"https://video.twimg.com/high.mp4?tag=1"}
+    ]}}
+  ]}},
+  "quoted_status_result":{"result":{"rest_id":"222","core":{"user_results":{"result":{"core":{"screen_name":"bob"}}}},
+    "legacy":{"extended_entities":{"media":[{"id_str":"903","type":"animated_gif","video_info":{"variants":[{"content_type":"video/mp4","bitrate":0,"url":"https://video.twimg.com/gif.mp4"}]}}]}}}}
+}}}}}]}]}}}

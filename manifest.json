@@ -1,0 +1,37 @@
+{
+  "manifest_version": 3,
+  "name": "X Media Downloader",
+  "version": "0.1.0",
+  "description": "Adds a download button to every tweet with media. Photos at original quality, videos/GIFs as best MP4.",
+  "permissions": ["downloads"],
+  "host_permissions": [
+    "https://x.com/*",
+    "https://twitter.com/*",
+    "https://pbs.twimg.com/*",
+    "https://video.twimg.com/*"
+  ],
+  "background": {
+    "service_worker": "src/background.js",
+    "scripts": ["src/background.js"],
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://x.com/*", "https://twitter.com/*"],
+      "js": ["src/inject.js"],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": ["https://x.com/*", "https://twitter.com/*"],
+      "js": ["src/content.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "x-media-downloader@angeltrevinov",
+      "strict_min_version": "128.0"
+    }
+  }
+}
